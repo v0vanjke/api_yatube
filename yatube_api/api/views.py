@@ -1,9 +1,9 @@
-from posts.models import Comment, Group, Post
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
 from api.serializers import (CommentSerializer, GroupListSerializer,
                              PostSerializer)
+from posts.models import Comment, Group, Post
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -43,7 +43,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(
-            post=Post.objects.get(id=self.kwargs.get('id')),
+            post_id=self.kwargs.get('id'),
             author=self.request.user,
         )
 
